@@ -9,7 +9,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
-    "start:dev": "nest start --watch",
+    "dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -17,10 +17,15 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "dev:send-event": "dotenv ts-node ./local/sendEventHubMessage.ts",
+    "event-hub-emulator:start": "docker-compose -f local/event-hub-emulator/docker-compose.yaml up -d",
+    "event-hub-emulator:stop": "docker-compose -f local/event-hub-emulator/docker-compose.yaml down"
   },
   "dependencies": {
+    "@azure/event-hubs": "^5.12.2",
     "@nestjs/common": "^11.0.1",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "reflect-metadata": "^0.2.2",
@@ -51,7 +56,8 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
-    "typescript-eslint": "^8.20.0"
+    "typescript-eslint": "^8.20.0",
+    "dotenv-cli": "^7.4.4"
   },
   "jest": {
     "moduleFileExtensions": [
